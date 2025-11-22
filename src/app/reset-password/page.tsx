@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { apiClient } from "@/lib/api-client";
 import { getErrorMessage } from "@/lib/error-utils";
@@ -8,7 +8,7 @@ import { Loader2, Lock, CheckCircle } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
-export default function ResetPasswordPage() {
+function ResetPasswordContent() {
     const searchParams = useSearchParams();
     const router = useRouter();
     const [token, setToken] = useState("");
@@ -116,8 +116,8 @@ export default function ResetPasswordPage() {
                         {message && (
                             <div
                                 className={`p-3 rounded-lg text-sm text-center ${message.type === "success"
-                                        ? "bg-green-500/10 border border-green-500/20 text-green-500"
-                                        : "bg-red-500/10 border border-red-500/20 text-red-500"
+                                    ? "bg-green-500/10 border border-green-500/20 text-green-500"
+                                    : "bg-red-500/10 border border-red-500/20 text-red-500"
                                     }`}
                             >
                                 {message.text}
@@ -176,5 +176,17 @@ export default function ResetPasswordPage() {
                 )}
             </motion.div>
         </div>
+    );
+}
+
+export default function ResetPasswordPage() {
+    return (
+        <Suspense fallback={
+            <div className="min-h-screen flex items-center justify-center bg-black text-white">
+                <Loader2 className="w-8 h-8 animate-spin text-purple-500" />
+            </div>
+        }>
+            <ResetPasswordContent />
+        </Suspense>
     );
 }
