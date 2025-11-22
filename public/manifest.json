@@ -1,0 +1,45 @@
+{
+    "name": "Second Brain Database",
+    "short_name": "SBD",
+    "description": "Enterprise-grade account management system",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#8b5cf6",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ],
+    "categories": [
+        "productivity",
+        "utilities"
+    ],
+    "shortcuts": [
+        {
+            "name": "Dashboard",
+            "url": "/dashboard",
+            "description": "Go to dashboard"
+        },
+        {
+            "name": "Profile",
+            "url": "/dashboard/profile",
+            "description": "View your profile"
+        },
+        {
+            "name": "Security",
+            "url": "/dashboard/security",
+            "description": "Security settings"
+        }
+    ]
+}
