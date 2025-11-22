@@ -19,10 +19,6 @@ export function TenantSwitcher() {
     const [currentTenant, setCurrentTenant] = useState<Tenant | null>(null);
     const [isOpen, setIsOpen] = useState(false);
 
-    useEffect(() => {
-        fetchTenants();
-    }, []);
-
     const fetchTenants = async () => {
         try {
             const res = await apiClient.get("/tenants/my-tenants");
@@ -42,6 +38,11 @@ export function TenantSwitcher() {
             console.error("Failed to fetch tenants", error);
         }
     };
+
+    useEffect(() => {
+        fetchTenants().catch(console.error);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const switchTenant = (tenant: Tenant) => {
         setCurrentTenant(tenant);

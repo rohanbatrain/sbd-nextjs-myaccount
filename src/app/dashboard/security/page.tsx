@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { apiClient } from "@/lib/api-client";
+import { getErrorMessage } from "@/lib/error-utils";
 import { Loader2, Shield, Key, Smartphone, Laptop, LogOut } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { motion } from "framer-motion";
@@ -40,8 +41,8 @@ export default function SecurityPage() {
                         <button
                             onClick={() => setActiveTab("password")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "password"
-                                    ? "bg-primary/10 text-primary"
-                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}
                         >
                             <Key className="w-4 h-4" />
@@ -50,8 +51,8 @@ export default function SecurityPage() {
                         <button
                             onClick={() => setActiveTab("2fa")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "2fa"
-                                    ? "bg-primary/10 text-primary"
-                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}
                         >
                             <Smartphone className="w-4 h-4" />
@@ -60,8 +61,8 @@ export default function SecurityPage() {
                         <button
                             onClick={() => setActiveTab("sessions")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "sessions"
-                                    ? "bg-primary/10 text-primary"
-                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}
                         >
                             <Laptop className="w-4 h-4" />
@@ -107,10 +108,10 @@ function ChangePasswordForm() {
             });
             setMessage({ type: "success", text: "Password changed successfully" });
             form.reset();
-        } catch (error: any) {
+        } catch (error: unknown) {
             setMessage({
                 type: "error",
-                text: error.response?.data?.detail || "Failed to change password",
+                text: getErrorMessage(error, "Failed to change password"),
             });
         } finally {
             setIsLoading(false);
@@ -130,8 +131,8 @@ function ChangePasswordForm() {
                 {message && (
                     <div
                         className={`p-3 rounded-lg text-sm ${message.type === "success"
-                                ? "bg-green-500/10 text-green-500"
-                                : "bg-red-500/10 text-red-500"
+                            ? "bg-green-500/10 text-green-500"
+                            : "bg-red-500/10 text-red-500"
                             }`}
                     >
                         {message.text}
@@ -188,20 +189,16 @@ function ChangePasswordForm() {
 }
 
 function TwoFactorAuth() {
-    const [status, setStatus] = useState<"enabled" | "disabled" | "loading">("loading");
+    const [status, setStatus] = useState<"enabled" | "disabled" | "loading" | "setup">("loading");
     const [setupData, setSetupData] = useState<{ secret: string; otpauth_url: string } | null>(null);
     const [verifyCode, setVerifyCode] = useState("");
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
-
-    useEffect(() => {
-        checkStatus();
-    }, []);
 
     const checkStatus = async () => {
         try {
             const res = await apiClient.get("/auth/2fa/status");
             setStatus(res.data.is_enabled ? "enabled" : "disabled");
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Failed to check 2FA status", error);
         }
     };
@@ -210,11 +207,18 @@ function TwoFactorAuth() {
         try {
             const res = await apiClient.post("/auth/2fa/setup");
             setSetupData(res.data);
+            setStatus("setup");
             setMessage(null);
-        } catch (error) {
+        } catch (error: unknown) {
             console.error("Failed to start 2FA setup", error);
+            alert("Failed to start 2FA setup");
         }
     };
+
+    useEffect(() => {
+        checkStatus().catch(console.error);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     const verifySetup = async () => {
         try {
@@ -222,10 +226,10 @@ function TwoFactorAuth() {
             setStatus("enabled");
             setSetupData(null);
             setMessage({ type: "success", text: "2FA enabled successfully" });
-        } catch (error: any) {
+        } catch (error: unknown) {
             setMessage({
                 type: "error",
-                text: error.response?.data?.detail || "Invalid code",
+                text: getErrorMessage(error, "Invalid code"),
             });
         }
     };

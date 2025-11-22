@@ -4,7 +4,6 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowRight, Shield, Users, Wallet, LayoutGrid } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 export default function LandingPage() {
   return (

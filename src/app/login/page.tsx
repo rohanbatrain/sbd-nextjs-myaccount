@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { apiClient } from "@/lib/api-client";
+import { getErrorMessage } from "@/lib/error-utils";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
@@ -27,8 +28,8 @@ export default function LoginPage() {
 
             const { access_token, refresh_token } = response.data;
             login(access_token, refresh_token);
-        } catch (err: any) {
-            setError(err.response?.data?.detail || "Login failed. Please check your credentials.");
+        } catch (err: unknown) {
+            setError(getErrorMessage(err, "Login failed. Please check your credentials."));
         } finally {
             setLoading(false);
         }
