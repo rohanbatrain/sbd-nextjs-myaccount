@@ -11,6 +11,8 @@ interface User {
     first_name?: string;
     last_name?: string;
     avatar_url?: string;
+    is_email_verified?: boolean;
+    is_2fa_enabled?: boolean;
 }
 
 interface AuthContextType {
@@ -45,6 +47,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                         email: profile.user_email,
                         first_name: profile.user_first_name,
                         last_name: profile.user_last_name,
+                        is_email_verified: profile.user_is_email_verified,
+                        is_2fa_enabled: profile.user_is_2fa_enabled,
                     });
                 }
             } catch (error) {
@@ -70,6 +74,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     email: profile.user_email,
                     first_name: profile.user_first_name,
                     last_name: profile.user_last_name,
+                    is_email_verified: profile.user_is_email_verified,
+                    is_2fa_enabled: profile.user_is_2fa_enabled,
                 });
                 router.push("/dashboard");
             }
