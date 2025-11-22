@@ -21,7 +21,7 @@ const profileSchema = z.object({
 type ProfileFormValues = z.infer<typeof profileSchema>;
 
 export default function ProfilePage() {
-    const { user, login } = useAuth(); // We might need to update user in context after save
+    const { user } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
 

@@ -115,7 +115,7 @@ function DashboardCard({
     color,
 }: {
     href: string;
-    icon: any;
+    icon: React.ComponentType<{ className?: string }>;
     title: string;
     description: string;
     color: string;

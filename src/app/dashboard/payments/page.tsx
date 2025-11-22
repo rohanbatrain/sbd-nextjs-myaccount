@@ -182,7 +182,7 @@ export default function EnhancedPaymentsPage() {
                     <div className="flex gap-2">
                         <select
                             value={filter}
-                            onChange={(e) => setFilter(e.target.value as any)}
+                            onChange={(e) => setFilter(e.target.value as "all" | "send" | "receive")}
                             className="bg-background border border-border rounded-lg px-3 py-2 text-sm"
                         >
                             <option value="all">All</option>

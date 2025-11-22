@@ -108,8 +108,8 @@ export default function PersonalizationPage() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         animate={{ opacity: 1, scale: 1 }}
                         className={`relative border rounded-lg overflow-hidden cursor-pointer transition-all ${currentId === asset.id
-                                ? "border-primary ring-2 ring-primary/20"
-                                : "border-border hover:border-primary/50"
+                            ? "border-primary ring-2 ring-primary/20"
+                            : "border-border hover:border-primary/50"
                             }`}
                         onClick={() => {
                             if (activeTab !== "themes") {
@@ -120,10 +120,10 @@ export default function PersonalizationPage() {
                         {/* Preview */}
                         <div className={`bg-muted ${activeTab === "avatars" ? "aspect-square" : "aspect-video"}`}>
                             {asset.preview_url ? (
-                                <img src={asset.preview_url} alt={asset.name} className="w-full h-full object-cover" />
+                                <img src={asset.preview_url} alt={`${asset.name} preview`} className="w-full h-full object-cover" />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center">
-                                    <Image className="w-8 h-8 text-muted-foreground" />
+                                    <Image className="w-8 h-8 text-muted-foreground" aria-hidden="true" />
                                 </div>
                             )}
                         </div>
@@ -176,8 +176,8 @@ export default function PersonalizationPage() {
                 <button
                     onClick={() => setActiveTab("avatars")}
                     className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${activeTab === "avatars"
-                            ? "text-primary border-b-2 border-primary"
-                            : "text-muted-foreground hover:text-foreground"
+                        ? "text-primary border-b-2 border-primary"
+                        : "text-muted-foreground hover:text-foreground"
                         }`}
                 >
                     <Image className="w-4 h-4" />
@@ -186,8 +186,8 @@ export default function PersonalizationPage() {
                 <button
                     onClick={() => setActiveTab("banners")}
                     className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${activeTab === "banners"
-                            ? "text-primary border-b-2 border-primary"
-                            : "text-muted-foreground hover:text-foreground"
+                        ? "text-primary border-b-2 border-primary"
+                        : "text-muted-foreground hover:text-foreground"
                         }`}
                 >
                     <Image className="w-4 h-4" />
@@ -196,8 +196,8 @@ export default function PersonalizationPage() {
                 <button
                     onClick={() => setActiveTab("themes")}
                     className={`flex items-center gap-2 px-4 py-2 font-medium transition-colors ${activeTab === "themes"
-                            ? "text-primary border-b-2 border-primary"
-                            : "text-muted-foreground hover:text-foreground"
+                        ? "text-primary border-b-2 border-primary"
+                        : "text-muted-foreground hover:text-foreground"
                         }`}
                 >
                     <Palette className="w-4 h-4" />

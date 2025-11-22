@@ -29,7 +29,6 @@ export default function EnhancedFamilyPage() {
     const [showInviteModal, setShowInviteModal] = useState(false);
     const [showTransferModal, setShowTransferModal] = useState(false);
     const [inviteEmail, setInviteEmail] = useState("");
-    const [selectedMember, setSelectedMember] = useState<FamilyMember | null>(null);
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
     useEffect(() => {

@@ -53,15 +53,6 @@ export default function EnhancedTenantsPage() {
         }
     };
 
-    const fetchTenantDetails = async (tenantId: string) => {
-        try {
-            const res = await apiClient.get(`/tenants/${tenantId}`);
-            setSelectedTenant(res.data);
-        } catch (error: unknown) {
-            setMessage({ type: "error", text: getErrorMessage(error, "Failed to fetch tenant details") });
-        }
-    };
-
     const fetchTenantMembers = async (tenantId: string) => {
         try {
             const res = await apiClient.get(`/tenants/${tenantId}/members`);
