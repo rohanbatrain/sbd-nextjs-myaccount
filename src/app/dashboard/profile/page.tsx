@@ -7,7 +7,9 @@ import * as z from "zod";
 import { useAuth } from "@/context/AuthContext";
 import { apiClient } from "@/lib/api-client";
 import { Loader2, Save, Camera } from "lucide-react";
+import { ProfilePhotoUpload, BannerUpload } from "@/components/profile/UploadComponents";
 import { motion } from "framer-motion";
+
 
 const profileSchema = z.object({
     user_first_name: z.string().min(1, "First name is required").max(50),
