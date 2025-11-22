@@ -73,8 +73,8 @@ export default function ForgotPasswordPage() {
                         {message && (
                             <div
                                 className={`p-3 rounded-lg text-sm text-center ${message.type === "success"
-                                        ? "bg-green-500/10 border border-green-500/20 text-green-500"
-                                        : "bg-red-500/10 border border-red-500/20 text-red-500"
+                                    ? "bg-green-500/10 border border-green-500/20 text-green-500"
+                                    : "bg-red-500/10 border border-red-500/20 text-red-500"
                                     }`}
                             >
                                 {message.text}
@@ -105,12 +105,12 @@ export default function ForgotPasswordPage() {
                     <div className="space-y-4">
                         <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg">
                             <p className="text-sm text-green-500 text-center">
-                                We've sent password reset instructions to <strong>{email}</strong>
+                                We&apos;ve sent password reset instructions to <strong>{email}</strong>
                             </p>
                         </div>
 
                         <div className="text-center text-sm text-white/50">
-                            <p>Didn't receive the email?</p>
+                            <p>Didn&apos;t receive the email?</p>
                             <button
                                 onClick={() => {
                                     setEmailSent(false);

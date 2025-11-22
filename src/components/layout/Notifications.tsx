@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { Bell } from "lucide-react";
-import { apiClient } from "@/lib/api-client";
 import { motion, AnimatePresence } from "framer-motion";
 
 interface Notification {
@@ -18,10 +17,6 @@ export function Notifications() {
     const [notifications, setNotifications] = useState<Notification[]>([]);
     const [showDropdown, setShowDropdown] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
-
-    useEffect(() => {
-        fetchNotifications().catch(console.error);
-    }, []);
 
     const fetchNotifications = async () => {
         try {

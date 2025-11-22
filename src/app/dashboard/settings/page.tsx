@@ -1,9 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { apiClient } from "@/lib/api-client";
-import { getErrorMessage } from "@/lib/error-utils";
-import { Settings as SettingsIcon, Globe, Bell, Lock, Download, Trash2 } from "lucide-react";
+import { useState } from "react";
+import { Globe, Bell, Lock, Download, Trash2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function SettingsPage() {
@@ -18,7 +16,7 @@ export default function SettingsPage() {
             // TODO: Implement when backend endpoint is ready
             setMessage({ type: "success", text: "Data download request submitted. You'll receive an email when ready." });
         } catch (error: unknown) {
-            setMessage({ type: "error", text: getErrorMessage(error, "Failed to request data download") });
+            setMessage({ type: "error", text: "Failed to request data download" });
         } finally {
             setIsLoading(false);
         }
@@ -33,7 +31,7 @@ export default function SettingsPage() {
             // TODO: Implement when backend endpoint is ready
             setMessage({ type: "success", text: "Data deletion request submitted. This may take a few days to process." });
         } catch (error: unknown) {
-            setMessage({ type: "error", text: getErrorMessage(error, "Failed to request data deletion") });
+            setMessage({ type: "error", text: "Failed to request data deletion" });
         } finally {
             setIsLoading(false);
         }
@@ -64,8 +62,8 @@ export default function SettingsPage() {
                         <button
                             onClick={() => setActiveTab("general")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "general"
-                                    ? "bg-primary/10 text-primary"
-                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}
                         >
                             <Globe className="w-4 h-4" />
@@ -74,8 +72,8 @@ export default function SettingsPage() {
                         <button
                             onClick={() => setActiveTab("notifications")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "notifications"
-                                    ? "bg-primary/10 text-primary"
-                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}
                         >
                             <Bell className="w-4 h-4" />
@@ -84,8 +82,8 @@ export default function SettingsPage() {
                         <button
                             onClick={() => setActiveTab("privacy")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "privacy"
-                                    ? "bg-primary/10 text-primary"
-                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}
                         >
                             <Lock className="w-4 h-4" />
@@ -94,8 +92,8 @@ export default function SettingsPage() {
                         <button
                             onClick={() => setActiveTab("data")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "data"
-                                    ? "bg-primary/10 text-primary"
-                                    : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
                                 }`}
                         >
                             <Download className="w-4 h-4" />
@@ -147,7 +145,7 @@ export default function SettingsPage() {
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <p className="font-medium">Email Notifications</p>
-                                                <p className="text-sm text-muted-foreground">Receive updates via email</p>
+                                                <p className="text-sm text-muted-foreground">We&apos;ll send you updates about your account</p>
                                             </div>
                                             <input type="checkbox" className="w-4 h-4" defaultChecked />
                                         </div>

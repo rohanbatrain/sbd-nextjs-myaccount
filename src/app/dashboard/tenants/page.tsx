@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { apiClient } from "@/lib/api-client";
 import { getErrorMessage } from "@/lib/error-utils";
-import { Building2, Plus, Edit, Trash2, Users, Settings as SettingsIcon, X } from "lucide-react";
+import { Building2, Plus, Edit, Trash2, Users, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter } from "next/navigation";
 
