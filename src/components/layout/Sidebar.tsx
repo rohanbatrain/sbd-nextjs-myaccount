@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { User, Shield, Users, Wallet, Building2, History, LayoutDashboard } from "lucide-react";
+import { User, Shield, Users, Wallet, Building2, History, LayoutDashboard, Image, Settings } from "lucide-react";
 
 export function Sidebar() {
     const pathname = usePathname();
@@ -14,9 +14,11 @@ export function Sidebar() {
         { href: "/dashboard/login-history", label: "Login History", icon: History },
         { href: "/dashboard/security-dashboard", label: "Security Dashboard", icon: Shield },
         { href: "/dashboard/api-tokens", label: "API Tokens", icon: Shield },
+        { href: "/dashboard/personalization", label: "Personalization", icon: Image },
         { href: "/dashboard/family", label: "Family", icon: Users },
         { href: "/dashboard/payments", label: "SBD Tokens", icon: Wallet },
         { href: "/dashboard/tenants", label: "Tenants", icon: Building2 },
+        { href: "/dashboard/settings", label: "Settings", icon: Settings },
     ];
 
     return (
