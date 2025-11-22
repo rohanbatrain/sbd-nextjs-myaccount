@@ -9,6 +9,7 @@ import { getErrorMessage } from "@/lib/error-utils";
 import { Loader2, Shield, Key, Smartphone, Laptop, LogOut } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import { motion } from "framer-motion";
+import { BackupCodes } from "@/components/security/BackupCodes";
 
 // Password Change Schema
 const passwordSchema = z.object({
@@ -23,14 +24,14 @@ const passwordSchema = z.object({
 type PasswordFormValues = z.infer<typeof passwordSchema>;
 
 export default function SecurityPage() {
-    const [activeTab, setActiveTab] = useState<"password" | "2fa" | "sessions">("password");
+    const [activeTab, setActiveTab] = useState<"password" | "2fa" | "backup" | "sessions">("password");
 
     return (
         <div className="max-w-4xl mx-auto space-y-8">
             <div>
                 <h1 className="text-3xl font-bold tracking-tight">Security</h1>
                 <p className="text-muted-foreground mt-2">
-                    Manage your password, 2FA, and active sessions.
+                    Manage your password, 2FA, backup codes, and active sessions.
                 </p>
             </div>
 
@@ -59,6 +60,16 @@ export default function SecurityPage() {
                             Two-Factor Auth
                         </button>
                         <button
+                            onClick={() => setActiveTab("backup")}
+                            className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "backup"
+                                ? "bg-primary/10 text-primary"
+                                : "text-muted-foreground hover:bg-muted hover:text-foreground"
+                                }`}
+                        >
+                            <Shield className="w-4 h-4" />
+                            Backup Codes
+                        </button>
+                        <button
                             onClick={() => setActiveTab("sessions")}
                             className={`flex items-center gap-3 px-4 py-3 text-sm font-medium rounded-lg transition-colors ${activeTab === "sessions"
                                 ? "bg-primary/10 text-primary"
@@ -82,6 +93,7 @@ export default function SecurityPage() {
                     >
                         {activeTab === "password" && <ChangePasswordForm />}
                         {activeTab === "2fa" && <TwoFactorAuth />}
+                        {activeTab === "backup" && <BackupCodes />}
                         {activeTab === "sessions" && <SessionsList />}
                     </motion.div>
                 </div>
