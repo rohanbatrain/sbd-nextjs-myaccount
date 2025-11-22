@@ -2,23 +2,6 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils";
-import {
-    LayoutDashboard,
-    User,
-    Shield,
-    Users,
-    CreditCard,
-    Info,
-    Settings,
-} from "lucide-react";
-
-const sidebarItems = [
-    {
-        title: "Home",
-        href: "/dashboard",
-        icon: LayoutDashboard,
-    },
 import { User, Shield, Users, Wallet, Building2, History, LayoutDashboard } from "lucide-react";
 
 export function Sidebar() {
@@ -61,9 +44,6 @@ export function Sidebar() {
                     );
                 })}
             </nav>
-            Settings
-        </Link>
-            </div >
-        </aside >
+        </aside>
     );
 }
