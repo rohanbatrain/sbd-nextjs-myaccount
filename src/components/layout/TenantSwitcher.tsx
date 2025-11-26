@@ -19,29 +19,27 @@ export function TenantSwitcher() {
     const [currentTenant, setCurrentTenant] = useState<Tenant | null>(null);
     const [isOpen, setIsOpen] = useState(false);
 
-    const fetchTenants = async () => {
-        try {
-            const res = await apiClient.get("/tenants/my-tenants");
-            const tenantList = res.data; // Adjust based on API response
-            setTenants(tenantList || []);
-
-            const currentId = Cookies.get("current_tenant_id");
-            if (currentId && tenantList) {
-                const current = tenantList.find((t: Tenant) => t.tenant_id === currentId);
-                if (current) setCurrentTenant(current);
-            } else if (tenantList && tenantList.length > 0) {
-                // Default to first if not set
-                setCurrentTenant(tenantList[0]);
-                Cookies.set("current_tenant_id", tenantList[0].tenant_id);
-            }
-        } catch (error) {
-            console.error("Failed to fetch tenants", error);
-        }
-    };
-
     useEffect(() => {
-        fetchTenants().catch(console.error);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        const fetchTenants = async () => {
+            try {
+                const res = await apiClient.get("/tenants/my-tenants");
+                const tenantList = res.data;
+                setTenants(tenantList || []);
+
+                const currentId = Cookies.get("current_tenant_id");
+                if (currentId && tenantList) {
+                    const current = tenantList.find((t: Tenant) => t.tenant_id === currentId);
+                    if (current) setCurrentTenant(current);
+                } else if (tenantList && tenantList.length > 0) {
+                    setCurrentTenant(tenantList[0]);
+                    Cookies.set("current_tenant_id", tenantList[0].tenant_id);
+                }
+            } catch (error) {
+                console.error("Failed to fetch tenants", error);
+            }
+        };
+
+        fetchTenants();
     }, []);
 
     const switchTenant = (tenant: Tenant) => {

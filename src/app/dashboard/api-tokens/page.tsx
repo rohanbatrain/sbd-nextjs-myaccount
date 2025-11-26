@@ -130,7 +130,7 @@ export default function ApiTokensPage() {
                             <div className="space-y-4">
                                 <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-lg p-4">
                                     <p className="text-sm text-yellow-600 dark:text-yellow-500 font-medium mb-2">
-                                        ⚠️ Save this token now! You won't be able to see it again.
+                                        ⚠️ Save this token now! You won&apos;t be able to see it again.
                                     </p>
                                 </div>
 
@@ -224,8 +224,8 @@ export default function ApiTokensPage() {
                         <div
                             key={token.token_id}
                             className={`p-4 border rounded-lg ${token.is_revoked
-                                    ? "border-red-500/20 bg-red-500/5 opacity-60"
-                                    : "border-border hover:bg-muted/50"
+                                ? "border-red-500/20 bg-red-500/5 opacity-60"
+                                : "border-border hover:bg-muted/50"
                                 } transition-colors`}
                         >
                             <div className="flex items-start justify-between">

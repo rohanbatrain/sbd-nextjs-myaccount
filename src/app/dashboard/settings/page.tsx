@@ -15,7 +15,7 @@ export default function SettingsPage() {
         try {
             // TODO: Implement when backend endpoint is ready
             setMessage({ type: "success", text: "Data download request submitted. You'll receive an email when ready." });
-        } catch (error: unknown) {
+        } catch {
             setMessage({ type: "error", text: "Failed to request data download" });
         } finally {
             setIsLoading(false);
@@ -30,7 +30,7 @@ export default function SettingsPage() {
         try {
             // TODO: Implement when backend endpoint is ready
             setMessage({ type: "success", text: "Data deletion request submitted. This may take a few days to process." });
-        } catch (error: unknown) {
+        } catch {
             setMessage({ type: "error", text: "Failed to request data deletion" });
         } finally {
             setIsLoading(false);
@@ -187,7 +187,7 @@ export default function SettingsPage() {
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <p className="font-medium">Activity Status</p>
-                                                <p className="text-sm text-muted-foreground">Show when you're online</p>
+                                                <p className="text-sm text-muted-foreground">Show when you&apos;re online</p>
                                             </div>
                                             <input type="checkbox" className="w-4 h-4" defaultChecked />
                                         </div>

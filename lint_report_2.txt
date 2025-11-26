@@ -1,0 +1,92 @@
+
+> sbd-nextjs-myaccount@0.1.0 lint
+> eslint
+
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/app/dashboard/about/page.tsx
+  38:13  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/app/dashboard/about/page.tsx:38:13
+  36 |     useEffect(() => {
+  37 |         if (user) {
+> 38 |             calculateStats().catch(console.error);
+     |             ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  39 |         }
+  40 |     }, [user]);
+  41 |  react-hooks/set-state-in-effect
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/app/dashboard/login-history/page.tsx
+  41:9   warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+  98:34  warning  'sessionId' is defined but never used                                                           @typescript-eslint/no-unused-vars
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/app/dashboard/security/page.tsx
+  232:9  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/app/dashboard/settings/page.tsx
+  18:18  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+  33:18  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/components/layout/Notifications.tsx
+  46:9  error  Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/components/layout/Notifications.tsx:46:9
+  44 |
+  45 |     useEffect(() => {
+> 46 |         fetchNotifications();
+     |         ^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  47 |     }, []);
+  48 |
+  49 |     const markAsRead = async (id: string) => {  react-hooks/set-state-in-effect
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/components/layout/TenantSwitcher.tsx
+  44:9  warning  Unused eslint-disable directive (no problems were reported from 'react-hooks/exhaustive-deps')
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/components/migration/DirectTransfer.tsx
+   5:37  warning  'Loader2' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         @typescript-eslint/no-unused-vars
+  36:23  warning  'wsProgress' is assigned a value but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  45:18  warning  '_err' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            @typescript-eslint/no-unused-vars
+  51:9   error    Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/components/migration/DirectTransfer.tsx:51:9
+  49 |
+  50 |     useEffect(() => {
+> 51 |         fetchInstances();
+     |         ^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  52 |     }, []);
+  53 |
+  54 |     const handleStartTransfer = async () => {  react-hooks/set-state-in-effect
+  71:23  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  84:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  84:23  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+  96:18  warning  'err' is defined but never used                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             @typescript-eslint/no-unused-vars
+  96:23  error    Unexpected any. Specify a different type                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    @typescript-eslint/no-explicit-any
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/components/migration/ImportCard.tsx
+  6:10  warning  'apiClient' is defined but never used  @typescript-eslint/no-unused-vars
+
+/Users/rohan/Documents/repos/sbd-nextjs-myaccount/src/components/migration/MigrationHistory.tsx
+  5:19  warning  'CheckCircle' is defined but never used  @typescript-eslint/no-unused-vars
+  5:32  warning  'XCircle' is defined but never used      @typescript-eslint/no-unused-vars
+  5:41  warning  'Clock' is defined but never used        @typescript-eslint/no-unused-vars
+
+✖ 21 problems (6 errors, 15 warnings)
+  0 errors and 3 warnings potentially fixable with the `--fix` option.
+

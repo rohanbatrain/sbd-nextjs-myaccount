@@ -206,14 +206,18 @@ function TwoFactorAuth() {
     const [verifyCode, setVerifyCode] = useState("");
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-    const checkStatus = async () => {
-        try {
-            const res = await apiClient.get("/auth/2fa/status");
-            setStatus(res.data.is_enabled ? "enabled" : "disabled");
-        } catch (error: unknown) {
-            console.error("Failed to check 2FA status", error);
-        }
-    };
+    useEffect(() => {
+        const checkStatus = async () => {
+            try {
+                const res = await apiClient.get("/auth/2fa/status");
+                setStatus(res.data.is_enabled ? "enabled" : "disabled");
+            } catch (error: unknown) {
+                console.error("Failed to check 2FA status", error);
+            }
+        };
+
+        checkStatus().catch(console.error);
+    }, []);
 
     const startSetup = async () => {
         try {
@@ -227,10 +231,7 @@ function TwoFactorAuth() {
         }
     };
 
-    useEffect(() => {
-        checkStatus().catch(console.error);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+
 
     const verifySetup = async () => {
         try {

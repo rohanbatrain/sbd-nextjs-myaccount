@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { apiClient } from "@/lib/api-client";
 import { getErrorMessage } from "@/lib/error-utils";
-import { Wallet, ArrowUpRight, ArrowDownLeft, Plus, Filter, Download } from "lucide-react";
+import { Wallet, ArrowUpRight, ArrowDownLeft, Plus, Download } from "lucide-react";
 import { motion } from "framer-motion";
 
 interface Transaction {
@@ -90,15 +90,7 @@ export default function EnhancedPaymentsPage() {
         }
     };
 
-    const addTransactionNote = async (transactionId: string, note: string) => {
-        try {
-            await apiClient.post(`/sbd-tokens/transaction/${transactionId}/note`, { note });
-            setMessage({ type: "success", text: "Note added successfully" });
-            await fetchData();
-        } catch (error: unknown) {
-            setMessage({ type: "error", text: getErrorMessage(error, "Failed to add note") });
-        }
-    };
+
 
     const exportTransactions = () => {
         const csv = [

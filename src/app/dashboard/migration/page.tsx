@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Download, Upload, ArrowRight } from "lucide-react";
+import { Download, ArrowRight } from "lucide-react";
 import { InstanceManagement } from "@/components/migration/InstanceManagement";
 import { DirectTransfer } from "@/components/migration/DirectTransfer";
 import { ExportCard } from "@/components/migration/ExportCard";
@@ -25,8 +25,8 @@ export default function MigrationPage() {
                 <button
                     onClick={() => setActiveTab("direct")}
                     className={`px-4 py-2 flex items-center gap-2 border-b-2 transition-colors ${activeTab === "direct"
-                            ? "border-primary text-primary font-medium"
-                            : "border-transparent text-muted-foreground hover:text-foreground"
+                        ? "border-primary text-primary font-medium"
+                        : "border-transparent text-muted-foreground hover:text-foreground"
                         }`}
                 >
                     <ArrowRight className="w-4 h-4" />
@@ -35,8 +35,8 @@ export default function MigrationPage() {
                 <button
                     onClick={() => setActiveTab("import-export")}
                     className={`px-4 py-2 flex items-center gap-2 border-b-2 transition-colors ${activeTab === "import-export"
-                            ? "border-primary text-primary font-medium"
-                            : "border-transparent text-muted-foreground hover:text-foreground"
+                        ? "border-primary text-primary font-medium"
+                        : "border-transparent text-muted-foreground hover:text-foreground"
                         }`}
                 >
                     <Download className="w-4 h-4" />

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Server, Plus, Trash2, RefreshCw, CheckCircle, XCircle, Loader2 } from "lucide-react";
+import { Server, Plus, Trash2, CheckCircle, XCircle, Loader2 } from "lucide-react";
 import { apiClient } from "@/lib/api-client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -47,7 +47,7 @@ export function InstanceManagement() {
         try {
             const res = await apiClient.get("/migration/instances");
             setInstances(res.data);
-        } catch (err: any) {
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             setError(err.response?.data?.detail || "Failed to fetch instances");
         } finally {
             setIsLoading(false);
@@ -62,7 +62,7 @@ export function InstanceManagement() {
             setShowAddModal(false);
             form.reset();
             await fetchInstances();
-        } catch (err: any) {
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             setError(err.response?.data?.detail || "Failed to add instance");
         } finally {
             setIsLoading(false);
@@ -75,7 +75,7 @@ export function InstanceManagement() {
         try {
             await apiClient.delete(`/migration/instances/${instanceId}`);
             await fetchInstances();
-        } catch (err: any) {
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             setError(err.response?.data?.detail || "Failed to delete instance");
         }
     };
