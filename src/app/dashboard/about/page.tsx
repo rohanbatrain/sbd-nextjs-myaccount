@@ -15,29 +15,29 @@ export default function AboutPage() {
     });
 
     useEffect(() => {
+        const calculateStats = async () => {
+            try {
+                // Fetch additional stats
+                const [familyRes, tokensRes] = await Promise.all([
+                    apiClient.get("/family/my-family").catch(() => ({ data: null })),
+                    apiClient.get("/sbd-tokens/my-tokens").catch(() => ({ data: { balance: 0 } })),
+                ]);
+
+                setStats({
+                    accountAge: 0, // Would need to come from backend
+                    loginCount: 0, // Placeholder - would come from backend
+                    familyCount: familyRes.data ? 1 : 0,
+                    tokenBalance: tokensRes.data?.balance || 0,
+                });
+            } catch (error) {
+                console.error("Failed to fetch stats", error);
+            }
+        };
+
         if (user) {
-            calculateStats().catch(console.error);
+            calculateStats();
         }
     }, [user]);
-
-    const calculateStats = async () => {
-        try {
-            // Fetch additional stats
-            const [familyRes, tokensRes] = await Promise.all([
-                apiClient.get("/family/my-family").catch(() => ({ data: null })),
-                apiClient.get("/sbd-tokens/my-tokens").catch(() => ({ data: { balance: 0 } })),
-            ]);
-
-            setStats({
-                accountAge: 0, // Would need to come from backend
-                loginCount: 0, // Placeholder - would come from backend
-                familyCount: familyRes.data ? 1 : 0,
-                tokenBalance: tokensRes.data?.balance || 0,
-            });
-        } catch (error) {
-            console.error("Failed to fetch stats", error);
-        }
-    };
 
     return (
         <div className="max-w-4xl mx-auto space-y-8">

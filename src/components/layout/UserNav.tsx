@@ -4,6 +4,7 @@ import { useState } from "react";
 import { User, LogOut, Settings } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import Link from "next/link";
+import NextImage from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 export function UserNav() {
@@ -32,9 +33,11 @@ export function UserNav() {
                 </span>
                 <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white">
                     {user.avatar_url ? (
-                        <img
+                        <NextImage
                             src={user.avatar_url}
                             alt={user.username}
+                            width={32}
+                            height={32}
                             className="w-full h-full rounded-full object-cover"
                         />
                     ) : (

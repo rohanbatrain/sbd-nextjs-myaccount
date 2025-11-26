@@ -18,29 +18,33 @@ export function Notifications() {
     const [showDropdown, setShowDropdown] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
 
-    const fetchNotifications = async () => {
-        try {
-            // TODO: Replace with actual endpoint when available
-            // const res = await apiClient.get("/notifications");
-            // setNotifications(res.data.notifications || []);
+    useEffect(() => {
+        const fetchNotifications = async () => {
+            try {
+                // TODO: Replace with actual endpoint when available
+                // const res = await apiClient.get("/notifications");
+                // setNotifications(res.data.notifications || []);
 
-            // Placeholder data
-            const mockNotifications: Notification[] = [
-                {
-                    id: "1",
-                    title: "Welcome!",
-                    message: "Your account has been created successfully",
-                    type: "success",
-                    read: false,
-                    created_at: new Date().toISOString(),
-                },
-            ];
-            setNotifications(mockNotifications);
-            setUnreadCount(mockNotifications.filter(n => !n.read).length);
-        } catch (error) {
-            console.error("Failed to fetch notifications", error);
-        }
-    };
+                // Placeholder data
+                const mockNotifications: Notification[] = [
+                    {
+                        id: "1",
+                        title: "Welcome!",
+                        message: "Your account has been created successfully",
+                        type: "success",
+                        read: false,
+                        created_at: new Date().toISOString(),
+                    },
+                ];
+                setNotifications(mockNotifications);
+                setUnreadCount(mockNotifications.filter(n => !n.read).length);
+            } catch (error) {
+                console.error("Failed to fetch notifications", error);
+            }
+        };
+
+        fetchNotifications();
+    }, []);
 
     const markAsRead = async (id: string) => {
         try {

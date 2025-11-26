@@ -7,6 +7,7 @@ import * as z from "zod";
 import { useAuth } from "@/context/AuthContext";
 import { apiClient } from "@/lib/api-client";
 import { Loader2, Save, Camera } from "lucide-react";
+import NextImage from "next/image";
 import { motion } from "framer-motion";
 
 
@@ -96,7 +97,14 @@ export default function ProfilePage() {
                         <div className="relative group cursor-pointer">
                             <div className="w-32 h-32 rounded-full bg-gradient-to-tr from-purple-500 to-blue-500 flex items-center justify-center text-white text-4xl font-bold overflow-hidden">
                                 {user?.avatar_url ? (
-                                    <img src={user.avatar_url} alt="Avatar" className="w-full h-full object-cover" />
+                                    <NextImage
+                                        src={user.avatar_url}
+                                        alt="Avatar"
+                                        width={128}
+                                        height={128}
+                                        className="w-full h-full object-cover"
+                                        unoptimized
+                                    />
                                 ) : (
                                     (user?.first_name?.[0] || user?.username?.[0] || "?").toUpperCase()
                                 )}

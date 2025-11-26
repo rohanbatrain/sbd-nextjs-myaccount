@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { apiClient } from "@/lib/api-client";
 import { getErrorMessage } from "@/lib/error-utils";
-import { Image, Palette, Check, Loader2 } from "lucide-react";
+import { Image as ImageIcon, Palette, Check, Loader2 } from "lucide-react";
+import Image from "next/image";
 import { motion } from "framer-motion";
 
 interface Asset {
@@ -30,11 +31,7 @@ export default function PersonalizationPage() {
     const [isLoading, setIsLoading] = useState(true);
     const [message, setMessage] = useState<{ type: "success" | "error"; text: string } | null>(null);
 
-    useEffect(() => {
-        fetchAssets().catch(console.error);
-    }, [activeTab]);
-
-    const fetchAssets = async () => {
+    const fetchAssets = useCallback(async () => {
         setIsLoading(true);
         setMessage(null);
         try {
@@ -66,7 +63,11 @@ export default function PersonalizationPage() {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [activeTab]);
+
+    useEffect(() => {
+        fetchAssets().catch(console.error);
+    }, [fetchAssets]);
 
     const setCurrentAsset = async (assetId: string, type: "avatar" | "banner") => {
         try {
@@ -93,7 +94,7 @@ export default function PersonalizationPage() {
         if (assets.length === 0) {
             return (
                 <div className="text-center py-12">
-                    <Image className="w-12 h-12 mx-auto mb-4 text-muted-foreground opacity-50" />
+                    <ImageIcon className="w-12 h-12 mx-auto mb-4 text-muted-foreground opacity-50" />
                     <p className="text-muted-foreground">No {activeTab} available</p>
                     <p className="text-sm text-muted-foreground mt-1">Visit the shop to get some!</p>
                 </div>
@@ -120,10 +121,17 @@ export default function PersonalizationPage() {
                         {/* Preview */}
                         <div className={`bg-muted ${activeTab === "avatars" ? "aspect-square" : "aspect-video"}`}>
                             {asset.preview_url ? (
-                                <img src={asset.preview_url} alt={`${asset.name} preview`} className="w-full h-full object-cover" />
+                                <Image
+                                    src={asset.preview_url}
+                                    alt={`${asset.name} preview`}
+                                    width={200}
+                                    height={200}
+                                    className="w-full h-full object-cover"
+                                    unoptimized
+                                />
                             ) : (
                                 <div className="w-full h-full flex items-center justify-center">
-                                    <Image className="w-8 h-8 text-muted-foreground" aria-hidden="true" />
+                                    <ImageIcon className="w-8 h-8 text-muted-foreground" aria-hidden="true" />
                                 </div>
                             )}
                         </div>
@@ -180,7 +188,7 @@ export default function PersonalizationPage() {
                         : "text-muted-foreground hover:text-foreground"
                         }`}
                 >
-                    <Image className="w-4 h-4" />
+                    <ImageIcon className="w-4 h-4" />
                     Avatars
                 </button>
                 <button
@@ -190,7 +198,7 @@ export default function PersonalizationPage() {
                         : "text-muted-foreground hover:text-foreground"
                         }`}
                 >
-                    <Image className="w-4 h-4" />
+                    <ImageIcon className="w-4 h-4" />
                     Banners
                 </button>
                 <button

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { apiClient } from "@/lib/api-client";
 import { getErrorMessage } from "@/lib/error-utils";
 import { Laptop, Smartphone, Tablet, MapPin, Calendar, LogOut, Loader2 } from "lucide-react";
 import { motion } from "framer-motion";
@@ -39,7 +38,6 @@ export default function LoginHistoryPage() {
         } else {
             fetchActiveSessions().catch(console.error);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [activeTab]);
 
     const fetchLoginHistory = async () => {
@@ -96,7 +94,7 @@ export default function LoginHistoryPage() {
         }
     };
 
-    const revokeSession = async (sessionId: string) => {
+    const revokeSession = async () => {
         if (!confirm("Are you sure you want to revoke this session?")) return;
 
         try {
@@ -142,8 +140,8 @@ export default function LoginHistoryPage() {
                 <button
                     onClick={() => setActiveTab("history")}
                     className={`px-4 py-2 font-medium transition-colors ${activeTab === "history"
-                            ? "text-primary border-b-2 border-primary"
-                            : "text-muted-foreground hover:text-foreground"
+                        ? "text-primary border-b-2 border-primary"
+                        : "text-muted-foreground hover:text-foreground"
                         }`}
                 >
                     Login History
@@ -151,8 +149,8 @@ export default function LoginHistoryPage() {
                 <button
                     onClick={() => setActiveTab("sessions")}
                     className={`px-4 py-2 font-medium transition-colors ${activeTab === "sessions"
-                            ? "text-primary border-b-2 border-primary"
-                            : "text-muted-foreground hover:text-foreground"
+                        ? "text-primary border-b-2 border-primary"
+                        : "text-muted-foreground hover:text-foreground"
                         }`}
                 >
                     Active Sessions
@@ -251,7 +249,7 @@ export default function LoginHistoryPage() {
                                     </div>
                                     {!session.is_current && (
                                         <button
-                                            onClick={() => revokeSession(session.session_id)}
+                                            onClick={() => revokeSession()}
                                             className="flex items-center gap-1 text-sm font-medium text-red-500 hover:bg-red-500/10 px-3 py-1.5 rounded-lg transition-colors"
                                         >
                                             <LogOut className="w-3 h-3" />

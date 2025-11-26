@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, AlertTriangle, Loader2, CheckCircle, ServerCrash, Pause, Play, X } from "lucide-react";
+import { ArrowRight, AlertTriangle, CheckCircle, ServerCrash, Pause, Play, X } from "lucide-react";
 import { apiClient } from "@/lib/api-client";
 import { useWebSocketProgress } from "@/hooks/useWebSocketProgress";
 
@@ -33,60 +33,23 @@ export function DirectTransfer() {
     const [isPaused, setIsPaused] = useState(false);
 
     // Use WebSocket for real-time updates (with REST fallback)
-    const { progress: wsProgress, isConnected } = useWebSocketProgress({
+    const { isConnected } = useWebSocketProgress({
         transferId,
         enabled: isTransferring,
     });
 
     useEffect(() => {
+        const fetchInstances = async () => {
+            try {
+                const res = await apiClient.get("/migration/instances");
+                setInstances(res.data);
+            } catch {
+                setError("Failed to fetch instances");
+            }
+        };
+
         fetchInstances();
     }, []);
-
-    // Update progress from WebSocket
-    useEffect(() => {
-        if (wsProgress) {
-            setProgress(wsProgress as any);
-            if (wsProgress.status === "completed" || wsProgress.status === "failed") {
-                setIsTransferring(false);
-                if (wsProgress.status === "failed") {
-                    setError(wsProgress.message || "Transfer failed");
-                }
-            }
-        }
-    }, [wsProgress]);
-
-    // Fallback: REST polling if WebSocket not connected
-    useEffect(() => {
-        if (transferId && isTransferring && !isConnected) {
-            const interval = setInterval(async () => {
-                try {
-                    const res = await apiClient.get(`/migration/transfer/${transferId}/status`);
-                    setProgress(res.data.progress);
-                    if (res.data.status === "completed" || res.data.status === "failed") {
-                        clearInterval(interval);
-                        setIsTransferring(false);
-                        if (res.data.status === "completed") {
-                            setError("");
-                        } else {
-                            setError(res.data.progress.error_message || "Transfer failed");
-                        }
-                    }
-                } catch (err) {
-                    console.error("Failed to fetch transfer status", err);
-                }
-            }, 2000);
-            return () => clearInterval(interval);
-        }
-    }, [transferId, isTransferring, isConnected]);
-
-    const fetchInstances = async () => {
-        try {
-            const res = await apiClient.get("/migration/instances");
-            setInstances(res.data);
-        } catch (err: any) {
-            setError("Failed to fetch instances");
-        }
-    };
 
     const handleStartTransfer = async () => {
         if (!fromInstance || !toInstance) {
@@ -105,7 +68,7 @@ export function DirectTransfer() {
                 to_instance_id: toInstance,
             });
             setTransferId(res.data.transfer_id);
-        } catch (err: any) {
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             setError(err.response?.data?.detail || "Failed to start transfer");
             setIsTransferring(false);
         }
@@ -118,8 +81,8 @@ export function DirectTransfer() {
             const action = isPaused ? "resume" : "pause";
             await apiClient.post(`/migration/transfer/${transferId}/control`, { action });
             setIsPaused(!isPaused);
-        } catch (err: any) {
-            setError("Failed to pause/resume transfer");
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
+            setError(err.response?.data?.detail || "Failed to pause/resume transfer");
         }
     };
 
@@ -130,8 +93,8 @@ export function DirectTransfer() {
             await apiClient.post(`/migration/transfer/${transferId}/control`, { action: "cancel" });
             setIsTransferring(false);
             setTransferId("");
-        } catch (err: any) {
-            setError("Failed to cancel transfer");
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
+            setError(err.response?.data?.detail || "Failed to cancel transfer");
         }
     };
 

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { apiClient } from "@/lib/api-client";
 import { getErrorMessage } from "@/lib/error-utils";
 import { Upload, Image as ImageIcon, X } from "lucide-react";
+import NextImage from "next/image";
 import { motion } from "framer-motion";
 
 export function ProfilePhotoUpload() {
@@ -66,10 +67,13 @@ export function ProfilePhotoUpload() {
             <div className="flex items-center gap-4">
                 <div className="relative">
                     {preview ? (
-                        <img
+                        <NextImage
                             src={preview}
                             alt="Profile preview"
+                            width={96}
+                            height={96}
                             className="w-24 h-24 rounded-full object-cover border-2 border-border"
+                            unoptimized
                         />
                     ) : (
                         <div className="w-24 h-24 rounded-full bg-muted flex items-center justify-center border-2 border-border">
@@ -175,10 +179,13 @@ export function BannerUpload() {
             <div className="relative">
                 {preview ? (
                     <div className="relative">
-                        <img
+                        <NextImage
                             src={preview}
                             alt="Banner preview"
+                            width={800}
+                            height={192}
                             className="w-full h-48 object-cover rounded-lg border-2 border-border"
+                            unoptimized
                         />
                         <button
                             onClick={removeBanner}

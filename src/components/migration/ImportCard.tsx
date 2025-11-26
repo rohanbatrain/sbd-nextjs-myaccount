@@ -3,7 +3,6 @@
 import { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { Upload, Loader2, CheckCircle, AlertCircle, FileJson } from "lucide-react";
-import { apiClient } from "@/lib/api-client";
 
 export function ImportCard() {
     const [isLoading, setIsLoading] = useState(false);
@@ -87,7 +86,7 @@ export function ImportCard() {
 
             setError("File upload functionality requires backend update.");
 
-        } catch (err: any) {
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             setError(err.response?.data?.detail || "Failed to import data");
         } finally {
             setIsLoading(false);

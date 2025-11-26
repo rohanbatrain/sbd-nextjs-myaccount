@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { History, CheckCircle, XCircle, Clock, Loader2 } from "lucide-react";
+import { History, Loader2 } from "lucide-react";
 import { apiClient } from "@/lib/api-client";
 import { formatDistanceToNow } from "date-fns";
 
@@ -12,7 +12,7 @@ interface MigrationItem {
     status: "completed" | "failed" | "in_progress";
     created_at: string;
     created_by: string;
-    metadata?: any;
+    metadata?: Record<string, unknown>;
 }
 
 export function MigrationHistory() {
@@ -35,19 +35,6 @@ export function MigrationHistory() {
 
         fetchHistory();
     }, []);
-
-    const getStatusIcon = (status: string) => {
-        switch (status) {
-            case "completed":
-                return <CheckCircle className="w-4 h-4 text-green-500" />;
-            case "failed":
-                return <XCircle className="w-4 h-4 text-red-500" />;
-            case "in_progress":
-                return <Loader2 className="w-4 h-4 text-blue-500 animate-spin" />;
-            default:
-                return <Clock className="w-4 h-4 text-muted-foreground" />;
-        }
-    };
 
     const getStatusText = (status: string) => {
         switch (status) {

@@ -44,7 +44,7 @@ export function ExportCard() {
                 setSuccess("Export created successfully!");
                 setDownloadUrl(res.data.download_url);
             }
-        } catch (err: any) {
+        } catch (err: any) { // eslint-disable-line @typescript-eslint/no-explicit-any
             setError(err.response?.data?.detail || "Failed to create export");
         } finally {
             setIsLoading(false);
