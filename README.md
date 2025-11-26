@@ -44,24 +44,38 @@ The **MyAccount** module is the central user dashboard for managing personal set
     ```
     Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Scripts
+## Deployment
 
--   `pnpm dev`: Run the development server.
--   `pnpm build`: Build the application for production.
--   `pnpm start`: Start the production server.
--   `pnpm lint`: Run ESLint.
--   `pnpm test`: Run unit tests with Jest.
--   `pnpm test:e2e`: Run end-to-end tests with Playwright.
--   `pnpm storybook`: Start Storybook for component development.
+This application is configured for static export and deploys to GitHub Pages.
 
-## Project Structure
+### GitHub Pages Deployment
 
--   `app/`: Next.js App Router pages and layouts.
--   `components/`: Reusable UI components.
--   `lib/`: Utility functions and shared logic.
--   `store/`: Zustand state management stores.
--   `hooks/`: Custom React hooks.
+The CI/CD pipeline automatically builds and deploys the static site to GitHub Pages on pushes to the `master` branch.
 
-## License
+- **Live URL**: https://rohanbatrain.github.io/sbd-nextjs-myaccount
+- **Build Command**: `npm run build` (generates static files in `./out`)
+- **Deployment**: Automated via GitHub Actions
 
-Private
+### Manual Deployment
+
+1. Build the static files:
+   ```bash
+   npm run build
+   ```
+
+2. Deploy the `./out` directory to your hosting provider.
+
+### Environment Variables
+
+For production, ensure the following environment variables are set:
+- `NEXT_PUBLIC_API_URL`: API endpoint URL
+
+## CI/CD Pipeline
+
+The pipeline includes:
+- **Testing**: Unit tests with Jest and coverage reporting
+- **Linting**: ESLint code quality checks
+- **Building**: Static export build
+- **Security**: Dependency audit and CodeQL analysis
+- **Deployment**: Automated GitHub Pages deployment
+- **Releases**: Tagged releases with build artifacts

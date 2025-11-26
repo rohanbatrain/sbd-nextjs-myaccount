@@ -39,7 +39,7 @@ export default function LoginHistoryPage() {
         } else {
             fetchActiveSessions().catch(console.error);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, [activeTab]);
 
     const fetchLoginHistory = async () => {

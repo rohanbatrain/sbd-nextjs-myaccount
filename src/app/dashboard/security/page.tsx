@@ -229,7 +229,7 @@ function TwoFactorAuth() {
 
     useEffect(() => {
         checkStatus().catch(console.error);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, []);
 
     const verifySetup = async () => {

@@ -41,7 +41,7 @@ export function TenantSwitcher() {
 
     useEffect(() => {
         fetchTenants().catch(console.error);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+         
     }, []);
 
     const switchTenant = (tenant: Tenant) => {
